@@ -15,10 +15,10 @@ The reason I built this is that I feel most of the web today is built on legacy 
 
 - structured data for apis
 - markdown for agents
-- html for crawlers
-- og image for social media
+- html for SEO crawlers and humans
+- og-image for social media
 
-This template implementation shows how to do this in a way that makes intuitive sence, adhering to the accept header properly, serving the right format to the right client, while still allowing easy testing by changing the extension in the path.
+This template implementation shows how to do this in a way that makes intuitive sense, adhering to the accept header properly, serving the right format to the right client, while still allowing easy testing by changing the extension in the path.
 
 I think this could be a great starting point to build a framework that goes back to basics, serving: JS, HTML, CSS, JSON, and PNG, all from a Cloudflare worker.
 
