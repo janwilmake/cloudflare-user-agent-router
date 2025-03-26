@@ -31,20 +31,8 @@ export const getOgImage = async (
     // Check if this is a request for an OG image
     const url = new URL(request.url);
     const pathParts = url.pathname.split("/");
-    if (pathParts.length < 4 || pathParts[2] !== "og") {
-      return undefined;
-    }
 
-    // Extract content ID
-    const lastPart = pathParts[3];
-    const [contentId] = lastPart.split(".");
-    if (!contentId) {
-      return undefined;
-    }
-
-    // Create cache key
     const cacheKey = `og:${url.pathname}`;
-
     // Try to get the image from KV cache
     const cachedImage = await env.CONTENT_KV.get(cacheKey, {
       type: "arrayBuffer",
@@ -76,7 +64,9 @@ export const getOgImage = async (
     // if prefetch, only put in kv and return '202 created'
     const imageBuffer = await new ImageResponse(html, config).arrayBuffer();
 
-    await env.CONTENT_KV.put(cacheKey, imageBuffer, { expirationTtl: 86400 });
+    await env.CONTENT_KV.put(cacheKey, imageBuffer, {
+      expirationTtl: 86400,
+    });
 
     // Return the original image response
     return new Response("Created", { status: 202 });
