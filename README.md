@@ -28,3 +28,12 @@ I think this could be a great starting point to build a framework that goes back
 
 - Shared application layer that serves the same information to **agents, crawlers, humans, and APIs**
 - Developer-friendly: intuitive and accessible paths for easy testing.
+
+## See also
+
+- X thread: https://x.com/janwilmake/status/1904951203340967987
+- Hackernews thread: https://news.ycombinator.com/item?id=43484770
+- Related work:
+  - Sponsorflare - https://github.com/janwilmake/cloudflare-sponsorware
+  - OpenAPI Search - https://x.com/janwilmake/status/1903405851286618501
+  - l402 - https://x.com/janwilmake/status/1899454114523738206
