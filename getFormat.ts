@@ -1,12 +1,17 @@
 /*
+
 This implementation allows the following
 
 1. SEO Crawlers must be served SEO-friendly HTML at all cost
-2. The path may end with a segment with an extension such as .html, .md, or .json, as https://llmstxt.org suggests
+2. The path may end with a segment with an extension such as .html, .md, or .json, as https://llmstxt.org suggests. This allows easy navigation when testing in browsers.
 3. If accept `*\/*` is provided (such as with some clis) it will default to text/markdown, which is desired for simple implementation with curl and fetch.
 4. If none of the above is true, it will use the accept header and find the first matching format, or return 'null' if no format matches.
 
-By default this function requires also supports yaml. Alter the function as desired
+By default this function requires also supports yaml and png.
+
+- YAML is a great alternative to JSON since it's more information-dense than JSON.
+- PNG is used for retrieving the og-image, and is added to the default since og-images are an essential way to improve URL shareability.
+
 */
 const getCrawler = (userAgent: string | null) => {
   const crawlers = [
@@ -33,16 +38,13 @@ const allowedFormats = {
   html: "text/html",
   json: "application/json",
   yaml: "text/yaml",
+  png: "image/png",
 } as const;
 
 type AllowedFormat = (typeof allowedFormats)[keyof typeof allowedFormats];
 
 /** Useful function to determine what to respond with */
 export const getFormat = (request: Request): AllowedFormat | null => {
-  const crawler = getCrawler(request.headers.get("user-agent"));
-  if (crawler) {
-    return "text/html";
-  }
   const accept = request.headers.get("accept") || "*/*";
   const pathname = new URL(request.url).pathname;
   const segmentChunks = pathname.split("/").pop()!.split(".");
@@ -52,8 +54,13 @@ export const getFormat = (request: Request): AllowedFormat | null => {
       : undefined;
 
   if (ext && Object.keys(allowedFormats).includes(ext)) {
-    // allow path to determine format
+    // allow path to determine format. comes before crawler since this allows easy changing
     return ext;
+  }
+
+  const crawler = getCrawler(request.headers.get("user-agent"));
+  if (crawler) {
+    return "text/html";
   }
 
   if (accept === "*/*") {
