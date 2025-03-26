@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudflare Worker Format Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #0066cc;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f0f5ff;
+            color: #0066cc;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .description {
+            background: #f0f5ff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Cloudflare Worker Format Demo</h1>
+
+    <div class="description">
+        <h2>How It Works</h2>
+        <p>This Cloudflare Worker demonstrates flexible content delivery in multiple formats. It supports:</p>
+        <ul>
+            <li><strong>SEO-friendly HTML</strong> for crawlers (automatic detection)</li>
+            <li><strong>Path extensions</strong> (.html, .md, .json, .yaml, .png) for explicit format selection</li>
+            <li><strong>Accept header</strong> parsing for content negotiation</li>
+            <li><strong>Default to Markdown</strong> when no specific format is requested (*/*)</li>
+            <li><strong>OG Image generation</strong> for social media sharing</li>
+        </ul>
+        <p>Try clicking the links below to see the same data in different formats!</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>HTML</th>
+                <th>Markdown</th>
+                <th>JSON</th>
+                <th>YAML</th>
+                <th>OG Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Alice</td>
+                <td><a href="/alice.html">View HTML</a></td>
+                <td><a href="/alice.md">View Markdown</a></td>
+                <td><a href="/alice.json">View JSON</a></td>
+                <td><a href="/alice.yaml">View YAML</a></td>
+                <td><a href="/alice.png">View Image</a></td>
+            </tr>
+            <tr>
+                <td>Bob</td>
+                <td><a href="/bob.html">View HTML</a></td>
+                <td><a href="/bob.md">View Markdown</a></td>
+                <td><a href="/bob.json">View JSON</a></td>
+                <td><a href="/bob.yaml">View YAML</a></td>
+                <td><a href="/bob.png">View Image</a></td>
+            </tr>
+            <tr>
+                <td>Charlie</td>
+                <td><a href="/charlie.html">View HTML</a></td>
+                <td><a href="/charlie.md">View Markdown</a></td>
+                <td><a href="/charlie.json">View JSON</a></td>
+                <td><a href="/charlie.yaml">View YAML</a></td>
+                <td><a href="/charlie.png">View Image</a></td>
+            </tr>
+            <tr>
+                <td>David</td>
+                <td><a href="/david.html">View HTML</a></td>
+                <td><a href="/david.md">View Markdown</a></td>
+                <td><a href="/david.json">View JSON</a></td>
+                <td><a href="/david.yaml">View YAML</a></td>
+                <td><a href="/david.png">View Image</a></td>
+            </tr>
+            <tr>
+                <td>Eve</td>
+                <td><a href="/eve.html">View HTML</a></td>
+                <td><a href="/eve.md">View Markdown</a></td>
+                <td><a href="/eve.json">View JSON</a></td>
+                <td><a href="/eve.yaml">View YAML</a></td>
+                <td><a href="/eve.png">View Image</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

@@ -2,10 +2,9 @@ name = "cloudflare-worker-template"
 main = "main.ts"
 compatibility_date = "2025-03-26"
 dev.port = 3000
-routes = [
-  { pattern = "xymake.com", custom_domain = true },
-  { pattern = "www.xymake.com", custom_domain = true }
-]
+assets.directory = "./public"
+route.custom_domain = true
+route.pattern = "worker.wilmake.com"
 
 [[kv_namespaces]]
 binding = "CONTENT_KV"
