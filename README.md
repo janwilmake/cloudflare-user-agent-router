@@ -1,4 +1,4 @@
-# Cloudflare User-Agent Router - Shared application layer that serves the same information to Agents, Crawlers, Humans, and APIs
+# User-Agent Router - Shared application layer that serves the same information to Agents, Crawlers, Humans, and APIs
 
 A template for building agent-friendly Cloudflare Workers from first principles, without many dependencies, in the most minimal way possible.
 
