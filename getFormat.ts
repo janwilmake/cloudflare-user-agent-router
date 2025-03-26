@@ -55,7 +55,9 @@ export const getFormat = (request: Request): AllowedFormat | null => {
 
   if (ext && Object.keys(allowedFormats).includes(ext)) {
     // allow path to determine format. comes before crawler since this allows easy changing
-    return ext;
+    return Object.entries(allowedFormats).find(
+      (entry) => entry[0] === ext,
+    )?.[1]!;
   }
 
   const crawler = getCrawler(request.headers.get("user-agent"));

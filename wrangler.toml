@@ -1,31 +1,12 @@
-name = "xymake"
+name = "cloudflare-worker-template"
 main = "main.ts"
-compatibility_date = "2025-03-07"
+compatibility_date = "2025-03-26"
 dev.port = 3000
 routes = [
   { pattern = "xymake.com", custom_domain = true },
   { pattern = "www.xymake.com", custom_domain = true }
 ]
 
-assets.directory = "./public"
-
-[[durable_objects.bindings]]
-name = "X_FEED"
-class_name = "XFeed"
-
-[[migrations]]
-tag = "v1"
-new_classes = ["XUserFeed"]
-
-[[migrations]]
-tag = "v2"
-deleted_classes = ["XUserFeed"]
-new_sqlite_classes = ["XFeed"]
-
-[vars]
-X_REDIRECT_URI = "https://xymake.com/callback"
-LOGIN_REDIRECT_URI = "/"
-
 [[kv_namespaces]]
-binding = "TWEET_KV"
-id = "30fb3f9f94c64cf384786cc7ceb595a3"
+binding = "CONTENT_KV"
+id = "26855cd211be4d24994e43646c1164be"
