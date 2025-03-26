@@ -1,0 +1,214 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Cloudflare Worker Template API",
+    "description": "A flexible Cloudflare Worker API that serves dashboard data in multiple formats (JSON, YAML, Markdown, HTML, and PNG) based on path extensions or Accept headers.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://worker.wilmake.com",
+      "description": "Default Cloudflare Worker deployment"
+    }
+  ],
+  "paths": {
+    "/{name}": {
+      "get": {
+        "summary": "Retrieve dashboard data for a given name",
+        "description": "Fetches dashboard data for a specified name, returning it in a format determined by the path extension (.json, .yaml, .md, .html, .png) or the Accept header. If no format is specified, defaults to Markdown.",
+        "operationId": "getDashboard",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "The name of the dashboard to retrieve (e.g., 'alice', 'bob'). Can include an optional extension (e.g., 'alice.json') to specify the response format.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "examples": ["alice", "bob.json", "charlie.md"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with dashboard data in the requested format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dashboard"
+                },
+                "example": {
+                  "title": "Alice's Dashboard",
+                  "subtitle": "An example dashboard for demonstration purposes",
+                  "totalItems": 1256,
+                  "participants": [
+                    "Alice",
+                    "Bob",
+                    "Charlie",
+                    "David",
+                    "Eve",
+                    "Frank"
+                  ],
+                  "avatarUrls": [
+                    "https://i.pravatar.cc/150?u=alice",
+                    "https://i.pravatar.cc/150?u=bob",
+                    "https://i.pravatar.cc/150?u=charlie",
+                    "https://i.pravatar.cc/150?u=david",
+                    "https://i.pravatar.cc/150?u=eve",
+                    "https://i.pravatar.cc/150?u=frank"
+                  ],
+                  "contentCount": 42,
+                  "description": "This is a sample dashboard showing various metrics and statistics.",
+                  "createdAt": "2025-03-26T12:00:00Z",
+                  "updatedAt": "2025-03-26T12:00:00Z"
+                }
+              },
+              "text/yaml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "title: Alice's Dashboard\nsubtitle: An example dashboard for demonstration purposes\ntotalItems: 1256\nparticipants:\n  - Alice\n  - Bob\n  - Charlie\n  - David\n  - Eve\n  - Frank\navatarUrls:\n  - https://i.pravatar.cc/150?u=alice\n  - https://i.pravatar.cc/150?u=bob\n  - https://i.pravatar.cc/150?u=charlie\n  - https://i.pravatar.cc/150?u=david\n  - https://i.pravatar.cc/150?u=eve\n  - https://i.pravatar.cc/150?u=frank\ncontentCount: 42\ndescription: This is a sample dashboard showing various metrics and statistics.\ncreatedAt: 2025-03-26T12:00:00Z\nupdatedAt: 2025-03-26T12:00:00Z"
+              },
+              "text/markdown": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "# Alice's Dashboard\n\nAn example dashboard for demonstration purposes\n\n## Stats\n\n- Total Items: 1,256\n- Contributors: 6\n- Content Count: 42\n\n## Participants\n\n- Alice\n- Bob\n- Charlie\n- David\n- Eve\n- Frank\n\n_Last updated: Wed, 26 Mar 2025 12:00:00 GMT_\n\n[View as HTML](/alice.html) | [View as JSON](/alice.json) | [View as YAML](/alice.yaml) | [View Open Graph Image](/alice.png)"
+              },
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<!DOCTYPE html><html lang=\"en\">...</html>"
+              },
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                },
+                "description": "An Open Graph image generated for social media sharing"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request due to unacceptable format",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Unacceptable format"
+              }
+            }
+          },
+          "404": {
+            "description": "Dashboard not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Not found"
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Optional request body (not typically used for GET, but included for completeness)",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Root endpoint",
+        "description": "Returns a welcome message for the root path.",
+        "operationId": "getRoot",
+        "responses": {
+          "200": {
+            "description": "Welcome message",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Welcome to the dashboard example. Try /{name} to see a dashboard."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Dashboard": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The title of the dashboard"
+          },
+          "subtitle": {
+            "type": "string",
+            "description": "A subtitle describing the dashboard"
+          },
+          "totalItems": {
+            "type": "integer",
+            "description": "Total number of items in the dashboard"
+          },
+          "participants": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of participant names"
+          },
+          "avatarUrls": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            },
+            "description": "List of avatar image URLs for participants"
+          },
+          "contentCount": {
+            "type": "integer",
+            "description": "Number of content items"
+          },
+          "description": {
+            "type": "string",
+            "description": "A brief description of the dashboard"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "title",
+          "subtitle",
+          "totalItems",
+          "participants",
+          "avatarUrls",
+          "contentCount",
+          "description",
+          "createdAt",
+          "updatedAt"
+        ]
+      }
+    }
+  }
+}
