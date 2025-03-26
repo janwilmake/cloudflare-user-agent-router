@@ -1,6 +1,6 @@
 # User-Agent Router - Shared application layer that serves the same information to Agents, Crawlers, Humans, and APIs
 
-![](user-agent-router.drawio.png)
+![](user-agent-router-graph.drawio.png)
 
 A template for building agent-friendly Cloudflare Workers from first principles, without many dependencies, in the most minimal way possible.
 
